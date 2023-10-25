@@ -1,35 +1,18 @@
-const axios = require("axios");
+const finnhub = require('finnhub');
 
-const targetUrl = "https://finnhub.io/api/v1/stock/symbol";
+const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+api_key.apiKey = "ckru69pr01qstsqsh9agckru69pr01qstsqsh9b0" // Replace this
+const finnhubClient = new finnhub.DefaultApi()
 
-const { log } = console;
-
-const finnHub = {
-  buildRequest: () => {
-    return {
-      method: "get",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "X-Finnhub-Token": "but0dnv48v6ue3ptd090",
-      },
-    };
-  },
-
-  parseResponse: (finnHubResponse) => {
-    return finnHubResponse["data"];
-  },
-
-  getTickers: async (exchange) => {
-    const USTickersUrl = `${targetUrl}?exchange=${exchange}`;
-    try {
-      const response = await axios(USTickersUrl, finnHub.buildRequest());
-      return finnHub.parseResponse(response);
-    } catch (err) {
-      log(err);
-      return Promise.resolve([]);
-    }
-  },
-};
-
-export default finnHub;
+const finhubAPI = {
+	searchStocks: async (query) => {
+		const searchUrlWithQuery = `${searchUrl}&q=${query}`;
+		try {
+			const response = await axios(searchUrlWithQuery, yahooAPI2.buildRequest());
+			return yahooAPI2.parseQueryResponse(response);
+		} catch (err) {
+			log(err);
+			return Promise.resolve([]);
+		}
+	},
+}
